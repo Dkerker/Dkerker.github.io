@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Contact Verifier</title>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: grid;
+            place-items: center;
+            min-height: 90vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 2rem, 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            max-width: 400px;
+            width: 90%;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result-message {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .Success {
+            color: #2a9d8f;
+        }
+        .Failure {
+            color: #e76f51;
+        }
+        .suggestion-link {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 25px;
+        }
+        .suggestion-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .suggestion-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Trusted Contact Verifier</h2>
+        <p>Enter an email or phone number that you want to check!</p>
+
+        <input type="text" id="searchInput" placeholder="e.g., support@google.com">
+
+        <button onclick="checkContact()">Verify</button>
+
+        <p id="result-message"></p>
+
+        <p class="suggestion-link">
+            Think one is missing?
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jdg2718@gmail.com&su=Trusted%20Contact%20Suggestion" target="_blank" rel="noopener noreferrer">
+                Suggest a contact to add
+            </a>
+        </p>
+    </div>
+
+    <script>
+        const trustedDatabase=[
+            "support@google.com",
+            "security@microsoft.com",
+            "billing@microsoft.com",
+            "support@amazon.com",
+            "service@paypal.com",
+            "security@linkedin.com",
+            "support@netflix.com",
+            "support@adobe.com",
+            "support@dropbox.com",
+            "service@fedex.com",
+            "donotreply@dhl.com",
+            "1-800-275-2273",
+            "1-800-692-7753",
+            "1-800-935-9935",
+            "1-800-869-3557",
+            "1-888-280-4331"
+        ];
+
+        function checkContact() {
+            const inputElement = document.getElementById("searchInput");
+            const messageElement = document.getElementById("result-message");
+
+            const contactToVerify = inputElement.value;
+
+            let found = false;
+            for (let i = 0; i < trustedDatabase.length; i++){
+                if (trustedDatabase[i] === contactToVerify.trim()){
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found){
+                messageElement.textContent = "Found! This is a trusted contact.";
+                messageElement.className = "Success.";
+            }
+            else{
+                messageElement.textContent = "Not found. Please be cautious.";
+                messageElement.className = "Failure.";
+            }
+        }
+    </script>
+</body>
+</html>
